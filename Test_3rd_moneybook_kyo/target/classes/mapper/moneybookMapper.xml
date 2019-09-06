@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sesoc.moneybook.dao.MoneybookMapper">
+	<insert id="insertMoneybook" parameterType="Moneybook">
+		insert into moneybook_info(
+			infonum,
+			userid,
+			memo,
+			type,
+			amount,
+			inputdate
+		)
+		values(
+			moneybook_seq.nextval,
+			#{userid},
+			#{memo},
+			#{type},
+			#{amount},
+			#{inputdate}
+		)
+	</insert>
+	
+	<select id="selectAll" parameterType="Moneybook" resultType="Moneybook">
+		select 
+			infonum,
+			userid,
+			memo,
+			type,
+			amount,
+			inputdate
+		 from
+			moneybook_info
+		where
+			userid = #{userid}
+		order by infonum desc
+	</select>
+	
+	<select id="searchDate" parameterType="Moneybook" resultType="Moneybook">
+		select 
+			infonum,
+			userid,
+			memo,
+			type,
+			amount,
+			inputdate
+		from
+			moneybook_info
+		where
+			userid = #{userid} and
+			type = #{type} and
+			inputdate = #{inputdate}
+		order by infonum desc
+	</select>
+	
+	<delete id="deleteList" parameterType="Moneybook">
+		delete from
+			moneybook_info
+		where
+			userid = #{userid} and
+			infonum = #{infonum}
+	</delete>
+</mapper>
+
